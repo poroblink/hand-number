@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -37,8 +39,8 @@
     canvasCtx.scale(dpr, dpr); //adapt HiDPI
     const numberDiv = document.getElementById('number')
 
-    let angle_list = []
-    
+    let angle_list_0 = []
+    let angle_list_1 = []
 
     const fpsControl = new FPS();
 
@@ -48,40 +50,39 @@
         canvasCtx.clearRect(0, 0, w, h);
         canvasCtx.drawImage(results.image, 0, 0, w, h);
         if (results.multiHandLandmarks) {
-            for (const landmarks of results.multiHandLandmarks) {
-                /* 全部關節 */
-                // drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-                //     color: '#00FF00',
-                //     lineWidth: 5
-                // });
-                // drawLandmarks(canvasCtx, landmarks, {
-                //     color: '#FF0000',
-                //     lineWidth: 2
-                // });
-
-                /* 食指指尖 */
-                // const posX = landmarks[8].x*w;
-                // const posY = landmarks[8].y*h;
-                // canvasCtx.fillStyle = "red";
-                // canvasCtx.beginPath();
-                // canvasCtx.arc(posX, posY, 10, 0, 2 * Math.PI, true);
-                // canvasCtx.fill();
-
-                /* 手關節角度 */
+            if(results.multiHandLandmarks.length==1){
                 let keypoint_pos = []
                 for (let i = 0; i < 21; ++i) {
-                    const posX = landmarks[i].x*w;
-                    const posY = landmarks[i].y*h;
+                    const posX = results.multiHandLandmarks[0][i].x*w;
+                    const posY = results.multiHandLandmarks[0][i].y*h;
                     keypoint_pos.push([posX, posY])
                 }
-                angle_list = hand_angle(keypoint_pos)
+                angle_list_0 = hand_angle(keypoint_pos)
                 setTimeout(() => {
-                    let gesture = hand_gesture(angle_list)
-                    console.log(gesture)
+                    let gesture = hand_gesture(angle_list_0)
                     numberDiv.innerHTML = gesture
                 }, "1500")
-                
             }
+            if(results.multiHandLandmarks.length==2){
+                let keypoint_pos_0 = []
+                let keypoint_pos_1 = []
+                for (let i = 0; i < 21; ++i) {
+                    const posX_0 = results.multiHandLandmarks[0][i].x*w;
+                    const posY_0 = results.multiHandLandmarks[0][i].y*h;
+                    keypoint_pos_0.push([posX_0, posY_0])
+                    const posX_1 = results.multiHandLandmarks[1][i].x*w;
+                    const posY_1 = results.multiHandLandmarks[1][i].y*h;
+                    keypoint_pos_1.push([posX_1, posY_1])
+                }
+                angle_list_0 = hand_angle(keypoint_pos_0)
+                angle_list_1 = hand_angle(keypoint_pos_1)
+                setTimeout(() => {
+                    let gesture_0 = hand_gesture(angle_list_0)
+                    let gesture_1 = hand_gesture(angle_list_1)
+                    numberDiv.innerHTML = gesture_0+"&nbsp;&nbsp;"+gesture_1
+                }, "1500")
+            }
+
         }
         canvasCtx.restore();
     }
@@ -218,13 +219,13 @@
                 pinky = true
             }
             if ((thumb == false) && (index == false) && (middle == false) && (ring == false) && (pinky == false)){
-                gesture_str = "十"
+                gesture_str = "握拳"
             }
             if ((thumb == true) && (index == false) && (middle == false) && (ring == false) && (pinky == false)){
-                gesture_str = "向上"
+                gesture_str = "讚"
             }
             if ((thumb == false) && (index == false) && (middle == false) && (ring == false) && (pinky == true)){
-                gesture_str = "向下"
+                gesture_str = "嫩"
             }
             if ((thumb == false) && (index == false) && (middle == true) && (ring == false) && (pinky == false)){
                 gesture_str = "幹"

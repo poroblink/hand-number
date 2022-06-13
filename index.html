@@ -87,6 +87,12 @@
                     else if(gesture_0=="0"&& gesture_1=="0"){
                         numberDiv.innerHTML = "關"
                     }
+                    else if(gesture_0=="向上"&& gesture_1=="向上"){
+                        numberDiv.innerHTML = "向上"
+                    }
+                    else if(gesture_0=="向下"&& gesture_1=="向下"){
+                        numberDiv.innerHTML = "向下"
+                    }
                     else {
                         if(results.multiHandedness[0].label=="Right"){
                             numberDiv.innerHTML = gesture_1+gesture_0

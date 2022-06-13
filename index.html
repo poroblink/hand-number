@@ -79,7 +79,16 @@
                 setTimeout(() => {
                     let gesture_0 = hand_gesture(angle_list_0)
                     let gesture_1 = hand_gesture(angle_list_1)
-                    numberDiv.innerHTML = gesture_0+"&nbsp;&nbsp;"+gesture_1
+                    if (gesture_0=="5"&& gesture_1=="5"){
+                        numberDiv.innerHTML = "開"
+                    }
+                    else if(gesture_0=="0"&& gesture_1=="0"){
+                        numberDiv.innerHTML = "關"
+                    }
+                    
+                    else {
+                        numberDiv.innerHTML = gesture_0+"&nbsp;&nbsp;"+gesture_1
+                    }
                 }, "1500")
             }
 
@@ -219,16 +228,16 @@
                 pinky = true
             }
             if ((thumb == false) && (index == false) && (middle == false) && (ring == false) && (pinky == false)){
-                gesture_str = "握拳"
+                gesture_str = "0"
             }
             if ((thumb == true) && (index == false) && (middle == false) && (ring == false) && (pinky == false)){
-                gesture_str = "讚"
+                gesture_str = "向上"
             }
             if ((thumb == false) && (index == false) && (middle == false) && (ring == false) && (pinky == true)){
-                gesture_str = "嫩"
+                gesture_str = "向下"
             }
             if ((thumb == false) && (index == false) && (middle == true) && (ring == false) && (pinky == false)){
-                gesture_str = "幹"
+                gesture_str = ""
             }
             if ((thumb == false) && (index == true) && (middle == false) && (ring == false) && (pinky == false)){
                 gesture_str = 1

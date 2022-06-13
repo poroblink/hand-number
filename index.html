@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -85,9 +87,12 @@
                     else if(gesture_0=="0"&& gesture_1=="0"){
                         numberDiv.innerHTML = "關"
                     }
-                    
                     else {
-                        numberDiv.innerHTML = gesture_0+"&nbsp;&nbsp;"+gesture_1
+                        if(results.multiHandedness[0].label=="Right"){
+                            numberDiv.innerHTML = gesture_1+gesture_0
+                        }else{
+                            numberDiv.innerHTML = gesture_0+gesture_1
+                        }
                     }
                 }, "1500")
             }
